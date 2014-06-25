@@ -46,16 +46,25 @@ endif
   """"""""""""""""""""""""""""""
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
-  
+
   " Gitを便利に使う
   NeoBundle 'tpope/vim-fugitive'
+
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
+
   " ステータス行に現在のgitブランチを表示する
   set statusline+=%{fugitive#statusline()}
-  
+
+  " 行末の半角スペースを可視化
+  NeoBundle 'bronson/vim-trailing-whitespace'
+
   " Ruby向けにendを自動挿入してくれる
   NeoBundle 'tpope/vim-endwise'
+
+  " コメントON/OFFを手軽に実行
+  NeoBundle 'tomtom/tcomment_vim'
+
   call neobundle#end()
 
   " Required:
@@ -67,7 +76,9 @@ endif
   """"""""""""""""""""""""""""""
 
 
-
+""""""""""""""""""""""""""""""""""""""""""
+" 挿入モード時のステータスラインの色を変更
+"""""""""""""""""""""""""""""""""""""""""""
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
 if has('syntax')
