@@ -118,7 +118,7 @@ endfunction
 "
 """""""""""""""""""""""""""""""""""""
 " カラー設定
-colorscheme murphy
+colorscheme molokai
 " 構文毎に文字色を変化
 syntax on
 " 行番号を表示
