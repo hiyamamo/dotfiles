@@ -1,12 +1,12 @@
-""""""""""""""""""""""""""""""""""""""
-" Plugin's Setup
-""""""""""""""""""""""""""""""""""""""
-if has('vim_starting')
-  set nocompatible               " Be iMproved
+  "=============================================================================
+  " Plugin's Setup
+  "=============================================================================
+  if has('vim_starting')
+    set nocompatible               " Be iMproved
 
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+    " Required:
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+  endif
 
   " Required:
   call neobundle#begin(expand('~/.vim/bundle/'))
@@ -20,10 +20,9 @@ endif
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
 
-  """""""""""""""""""""""""""""""
+  "=============================================================================
   " Unit.vimの設定
-  
-  """""""""""""""""""""""""""""""
+  "=============================================================================
   " 入力モードで開始する
   let g:unite_enable_start_insert=1
   " バッファ一覧
@@ -43,7 +42,7 @@ endif
   " ESCキーを2回押すと終了する
   au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
   au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-  """"""""""""""""""""""""""""""
+  "=============================================================================
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
 
@@ -77,67 +76,80 @@ endif
   " If there are uninstalled bundles found on startup,
   " this will conveniently prompt you to install them.
   NeoBundleCheck
-  """"""""""""""""""""""""""""""
 
+  "=============================================================================
+  " 挿入モード時のステータスラインの色を変更
+  "=============================================================================
+  let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
-""""""""""""""""""""""""""""""""""""""""""
-" 挿入モード時のステータスラインの色を変更
-"""""""""""""""""""""""""""""""""""""""""""
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
+  if has('syntax')
+    augroup InsertHook
+      autocmd!
+      autocmd InsertEnter * call s:StatusLine('Enter')
+      autocmd InsertLeave * call s:StatusLine('Leave')
+    augroup END
   endif
-endfunction
 
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
+  let s:slhlcmd = ''
+  function! s:StatusLine(mode)
+    if a:mode == 'Enter'
+      silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+      silent exec g:hi_insert
+    else
+      highlight clear StatusLine
+      silent exec s:slhlcmd
+    endif
+  endfunction
 
-"""""""""""""""""""""""""""""""""""""
-" Set Options 
-"
-"""""""""""""""""""""""""""""""""""""
-" カラー設定
-colorscheme molokai
-" 構文毎に文字色を変化
-syntax on
-" 行番号を表示
-set number
-" 対応括弧やブレースを表示
-set showmatch
-set tabstop=2
-set shiftwidth=2
-set smarttab
-set whichwrap=b,s,h,l,<,>,[,]
-highlight LineNr ctermfg=darkyellow
-set laststatus=2
-set wildmenu
-set showcmd
-set smartcase
-set hlsearch
-set expandtab
-set incsearch
-set autoindent
-set hidden
-" ステータス行に表示させる情報の指定(どこからかコピペしたので細かい意味はわかっていない)
- set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+  function! s:GetHighlight(hi)
+    redir => hl
+    exec 'highlight '.a:hi
+    redir END
+    let hl = substitute(hl, '[\r\n]', '', 'g')
+    let hl = substitute(hl, 'xxx', '', '')
+    return hl
+  endfunction
+
+  "=============================================================================
+  " Set Options
+  "=============================================================================
+  " カラー設定
+  colorscheme molokai
+  " 構文毎に文字色を変化
+  syntax on
+  " タグファイル指定
+  set tags=~/.tags
+  " 行番号を表示
+  set number
+  " 対応括弧やブレースを表示
+  set showmatch
+  "タブ文字表示幅
+  set tabstop=2
+  " Vimが挿入するインデント幅
+  set shiftwidth=2
+  " 行頭でタブを入力すると'shiftwidth'分だけインデントする
+  set smarttab
+  " カーソルを行頭、行末で止まらないように
+  set whichwrap=b,s,h,l,<,>,[,]
+  " 行番号の色
+  highlight LineNr ctermfg=darkyellow
+  " ステータスライン行
+  set laststatus=2
+  " コマンドモードで<tab>キーによるファイル名補完を有効化
+  set wildmenu
+  " コマンドを可視化
+  set showcmd
+  " 小文字のみで検索した時に大文字小文字を無視
+  set smartcase
+  " 検索結果をハイライト
+  set hlsearch
+  " タブ入力を複数の空白入力に置換
+  set expandtab
+  " 検索ワードを入力した時点で検索を開始
+  set incsearch
+  " 開業時に前の行のインデントを継続
+  set autoindent
+  " 保存されていないファイルがあるときでも別のファイルを開ける
+  set hidden
+  " ステータス行に表示させる情報の指定
+  set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
