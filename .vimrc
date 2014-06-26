@@ -65,6 +65,10 @@ endif
   " コメントON/OFFを手軽に実行
   NeoBundle 'tomtom/tcomment_vim'
 
+  " Rubyのリファレンスを引く
+  NeoBundle 'thinca/vim-ref'
+  NeoBundle 'yuku-t/vim-ref-ri'
+
   call neobundle#end()
 
   " Required:
