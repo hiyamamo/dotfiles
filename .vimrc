@@ -109,6 +109,16 @@
   NeoBundleCheck
 
   "=============================================================================
+  " Peco
+  "=============================================================================
+  function! PecoOpen()
+    for filename in split(system("find . -type f | peco"), "\n")
+      execute "e" filename
+    endfor
+  endfunction
+  nnoremap <Leader> :call PecoOpen()<CR>
+
+  "=============================================================================
   " 挿入モード時のステータスラインの色を変更
   "=============================================================================
   let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
@@ -145,7 +155,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme molokai
+  colorscheme murphy
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定
