@@ -7,8 +7,10 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/bin
 
+# export PATH="$HOME/.rbenv/bin:$PATH"
+export GOROOT=$HOME/go
+export GOPATH=$HOME/mygo
+PATH=$PATH:$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin:$GOROOT/bin
 export PATH
-export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
