@@ -145,11 +145,11 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme molokai
+  colorscheme murphy
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定
-  set tags=~/.tags
+  set tags=./.tags
   " 行番号を表示
   set number
   " 対応括弧やブレースを表示
