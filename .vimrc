@@ -49,6 +49,8 @@
   " Gitを便利に使う
   NeoBundle 'tpope/vim-fugitive'
 
+  " 指定の記号で囲む
+  NeoBundle 'tpope/vim-surround'
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
 
