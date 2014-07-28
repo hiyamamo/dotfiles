@@ -3,6 +3,7 @@
 	sts = status
 [core]
 	editor = vim
+	autocrlf = true
 [user]
 	name = hiyamamo
 	email = h1r0ki_yamam0t0@yahoo.co.jp
