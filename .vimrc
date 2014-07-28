@@ -204,3 +204,7 @@
   set nobackup
   " アンドゥファイルを作成しない
   set noundofile
+
+  set clipboard=unnamed
+
+  set showtabline=2
