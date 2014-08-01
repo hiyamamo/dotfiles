@@ -1,1 +1,0 @@
-/home/YAMAMOTO_HI/dotfiles/.vim
