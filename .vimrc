@@ -191,11 +191,9 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme molokai
+  colorscheme hybrid
   " 構文毎に文字色を変化
   syntax on
-  " 透過
-  autocmd GUIEnter * set transparency=220
   " タグファイル指定
   set tags=./tags;
   " 行番号を表示
