@@ -191,7 +191,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme molokai
+  colorscheme hybrid
   " 構文毎に文字色を変化
   syntax on
   " 透過

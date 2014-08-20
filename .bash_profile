@@ -15,3 +15,5 @@ export GOPATH=$HOME/mygo
 PATH=$PATH:$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin:$GOROOT/bin
 export PATH
 eval "$(rbenv init -)"
+PATH=/usr/local/heroku/bin:$PATH
+source ~/.git-completion.bash
