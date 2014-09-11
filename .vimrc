@@ -15,6 +15,7 @@
   " Required:
   NeoBundleFetch 'Shougo/neobundle.vim'
 
+  NeoBundle 'kchmck/vim-coffee-script'
   " ファイルオープンを便利に
   NeoBundle 'Shougo/unite.vim'
   " Unite.vimで最近使ったファイルを表示できるようにする
