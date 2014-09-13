@@ -15,6 +15,10 @@
   " Required:
   NeoBundleFetch 'Shougo/neobundle.vim'
 
+
+  " 自動整形
+  NeoBundle 'junegunn/vim-easy-align'
+
   " ファイルオープンを便利に
   NeoBundle 'Shougo/unite.vim'
   " Unite.vimで最近使ったファイルを表示できるようにする
@@ -239,5 +243,8 @@
 
   set clipboard=unnamed
 
-  "エンターで改行
+  " エンターで改行
   noremap <CR> o<ESC>
+  " EasyAlign
+  vmap <Cr> <Plug>(EasyAlign)
+  nmap <Leader>a <Plug>(EasyAlign)
