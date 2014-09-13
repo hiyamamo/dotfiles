@@ -18,6 +18,9 @@
 
   " 自動整形
   NeoBundle 'junegunn/vim-easy-align'
+  " EasyAlign
+  vmap <Cr> <Plug>(EasyAlign)
+  nmap <Leader>a <Plug>(EasyAlign)
 
   " CoffeeScript用のsyntaxなど
   NeoBundle 'kchmck/vim-coffee-script'
@@ -26,6 +29,22 @@
   NeoBundle 'Shougo/unite.vim'
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
+
+  " カーソル移動を快適に
+  NeoBundle 'Lokaltog/vim-easymotion'
+  let g:EasyMotion_do_mapping = 0
+  nmap s <Plug>(easymotion-s2)
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+  map f <Plug>(easymotion-fl)
+  map t <Plug>(easymotion-tl)
+  map F <Plug>(easymotion-Fl)
+  map T <Plug>(easymotion-Tl)
+  map / <Plug>(easymotion-sn)
+  omap / <Plug>(easymotion-tn)
+  map n <Plug>(easymotion-next)
+  map N <Plug>(easymotion-prev)
+  set nohlsearch
 
   "=============================================================================
   " Unit.vimの設定
@@ -225,8 +244,6 @@
   set showcmd
   " 小文字のみで検索した時に大文字小文字を無視
   set smartcase
-  " 検索結果をハイライト
-  set hlsearch
   " タブ入力を複数の空白入力に置換
   set expandtab
   " 検索ワードを入力した時点で検索を開始
@@ -247,7 +264,4 @@
   set clipboard=unnamed
 
   " エンターで改行
-  noremap <CR> o<ESC>
-  " EasyAlign
-  vmap <Cr> <Plug>(EasyAlign)
-  nmap <Leader>a <Plug>(EasyAlign)
+  nnoremap <CR> o<ESC>
