@@ -19,6 +19,9 @@
   " 自動整形
   NeoBundle 'junegunn/vim-easy-align'
 
+  " CoffeeScript用のsyntaxなど
+  NeoBundle 'kchmck/vim-coffee-script'
+
   " ファイルオープンを便利に
   NeoBundle 'Shougo/unite.vim'
   " Unite.vimで最近使ったファイルを表示できるようにする
