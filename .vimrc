@@ -111,16 +111,6 @@
   NeoBundleCheck
 
   "=============================================================================
-  " Peco
-  "=============================================================================
-  function! PecoOpen()
-    for filename in split(system("find . -type f | peco"), "\n")
-      execute "e" filename
-    endfor
-  endfunction
-  nnoremap <Leader> :call PecoOpen()<CR>
-
-  "=============================================================================
   " 挿入モード時のステータスラインの色を変更
   "=============================================================================
   let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
@@ -201,7 +191,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme molokai
+  colorscheme jellybeans
   " 構文毎に文字色を変化
   syntax on
   " 透過
@@ -232,8 +222,6 @@
   set smartcase
   " 検索結果をハイライト
   set hlsearch
-  " タブ入力を複数の空白入力に置換
-  set expandtab
   " 検索ワードを入力した時点で検索を開始
   set incsearch
   " 開業時に前の行のインデントを継続
@@ -249,7 +237,20 @@
   " アンドゥファイルを作成しない
   set noundofile
 
+  " 不可視文字を可視化
+  set list
+
   set clipboard=unnamed
 
   "エンターで改行
-  noremap <CR> o<ESC>
+  noremap <C-CR> o<ESC>
+
+	set guifont=MigMix_1M:h13:w7:cSHIFTJIS
+
+	set columns=180
+
+	set lines=125
+
+	set cmdheight=2
+
+	" autocmd VimEnter * execute 'NERDTree'
