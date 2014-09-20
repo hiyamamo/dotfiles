@@ -31,20 +31,12 @@
   NeoBundle 'Shougo/neomru.vim'
 
   " カーソル移動を快適に
+  " ミニマル設定
   NeoBundle 'Lokaltog/vim-easymotion'
   let g:EasyMotion_do_mapping = 0
   nmap s <Plug>(easymotion-s2)
   let g:EasyMotion_enter_jump_first = 1
   let g:EasyMotion_space_jump_first = 1
-  map f <Plug>(easymotion-fl)
-  map t <Plug>(easymotion-tl)
-  map F <Plug>(easymotion-Fl)
-  map T <Plug>(easymotion-Tl)
-  map / <Plug>(easymotion-sn)
-  omap / <Plug>(easymotion-tn)
-  map n <Plug>(easymotion-next)
-  map N <Plug>(easymotion-prev)
-  set nohlsearch
 
   "=============================================================================
   " Unit.vimの設定
@@ -244,6 +236,8 @@
   set showcmd
   " 小文字のみで検索した時に大文字小文字を無視
   set smartcase
+  " 検索時に大文字小文字を無視
+  set ignorecase
   " タブ入力を複数の空白入力に置換
   set expandtab
   " 検索ワードを入力した時点で検索を開始
