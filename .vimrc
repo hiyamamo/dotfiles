@@ -217,7 +217,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme hybrid
+  colorscheme jellybeans
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定
@@ -264,4 +264,4 @@
   set clipboard=unnamed
 
   " エンターで改行
-  nnoremap <CR> o<ESC>
+  noremap <C-CR> o<ESC>
