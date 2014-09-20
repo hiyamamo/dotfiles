@@ -254,6 +254,8 @@
   set nobackup
   " アンドゥファイルを作成しない
   set noundofile
+  " 検索文字をハイライト
+  set hlsearch
 
   set clipboard=unnamed
 
