@@ -15,23 +15,30 @@
   " Required:
   NeoBundleFetch 'Shougo/neobundle.vim'
 
+
+  " 自動整形
+  NeoBundle 'junegunn/vim-easy-align'
+  " EasyAlign
+  vmap <Cr> <Plug>(EasyAlign)
+  nmap <Leader>a <Plug>(EasyAlign)
+
+  " CoffeeScript用のsyntaxなど
   NeoBundle 'kchmck/vim-coffee-script'
+
+	NeoBundle 'tpope/vim-repeat'
+
   " ファイルオープンを便利に
   NeoBundle 'Shougo/unite.vim'
-  " Unite.vimで最近使ったファイルを表示できるようにする
-  NeoBundle 'Shougo/neomru.vim'
 
   "=============================================================================
   " Unit.vimの設定
   "=============================================================================
   " 入力モードで開始する
-  "let g:unite_enable_start_insert=1
+  let g:unite_enable_start_insert=1
   " バッファ一覧
   noremap <C-P> :Unite buffer<CR>
-  " ファイル一覧
-  noremap <C-N> :Unite -buffer-name=file file<CR>
-  " 最近使ったファイルの一覧
-  noremap <C-Z> :Unite file_mru<CR>
+  " ファイル一覧(再帰的に表示)
+  noremap <C-N> :Unite -buffer-name=file file_rec<CR>
   " sourcesを「今開いているファイルのディレクトリ」とする
   noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
   " ウィンドウを分割して開く
@@ -47,16 +54,10 @@
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
 
-  " Gitを便利に使う
-  NeoBundle 'tpope/vim-fugitive'
-
   " 指定の記号で囲む
   NeoBundle 'tpope/vim-surround'
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
-
-  " ステータス行に現在のgitブランチを表示する
-  set statusline+=%{fugitive#statusline()}
 
   " 行末の半角スペースを可視化
   NeoBundle 'bronson/vim-trailing-whitespace'
@@ -66,10 +67,6 @@
 
   " コメントON/OFFを手軽に実行
   NeoBundle 'tomtom/tcomment_vim'
-
-  " Rubyのリファレンスを引く
-  NeoBundle 'thinca/vim-ref'
-  NeoBundle 'yuku-t/vim-ref-ri'
 
   " 入力補完
   NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
@@ -192,7 +189,8 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme hybrid
+  colorscheme gruvbox
+  set background=dark
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定
@@ -201,6 +199,8 @@
   set number
   " 対応括弧やブレースを表示
   set showmatch
+	" showmatchの時間を設定
+	set matchtime=1
   "タブ文字表示幅
   set tabstop=2
   " Vimが挿入するインデント幅
@@ -219,13 +219,11 @@
   set showcmd
   " 小文字のみで検索した時に大文字小文字を無視
   set smartcase
-  " 検索結果をハイライト
-  set hlsearch
+ set ig " 検索時に大文字小文字を無視
+  set ignorecase
   " タブ入力を複数の空白入力に置換
-  set expandtab
-  " 検索ワードを入力した時点で検索を開始
-  set incsearch
-  " 開業時に前の行のインデントを継続
+  set expandtab  " 検索ワードを入力した時点で検索を開始norecase  set incsearch
+  " 改行時に前の行のインデントを継続
   set autoindent
   " 保存されていないファイルがあるときでも別のファイルを開ける
   set hidden
@@ -237,8 +235,23 @@
   set nobackup
   " アンドゥファイルを作成しない
   set noundofile
+  " 検索文字をハイライト
+  set hlsearch
+
+  " 不可視文字を可視化
+  set list
 
   set clipboard=unnamed
 
-  "エンターで改行
-  noremap <CR> o<ESC>
+	" 改行
+  noremap <C-CR> o<ESC>
+
+	" settings for colorscheme:gruvbox
+	let g:gruvbox_italic=0
+
+	set grepprg=c:/cygwin64/bin/grep\ -nrH
+
+	set display=lastline
+
+	"Yで行末までヤンク
+	nnoremap Y y$
