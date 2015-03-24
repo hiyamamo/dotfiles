@@ -15,10 +15,36 @@
   " Required:
   NeoBundleFetch 'Shougo/neobundle.vim'
 
+
+  " 自動整形
+  NeoBundle 'junegunn/vim-easy-align'
+  " EasyAlign
+  vmap <Cr> <Plug>(EasyAlign)
+  nmap <Leader>a <Plug>(EasyAlign)
+
+  " CoffeeScript用のsyntaxなど
+  NeoBundle 'kchmck/vim-coffee-script'
+
   " ファイルオープンを便利に
   NeoBundle 'Shougo/unite.vim'
   " Unite.vimで最近使ったファイルを表示できるようにする
   NeoBundle 'Shougo/neomru.vim'
+
+  " カーソル移動を快適に
+  NeoBundle 'Lokaltog/vim-easymotion'
+  let g:EasyMotion_do_mapping = 0
+  nmap s <Plug>(easymotion-s2)
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+  map f <Plug>(easymotion-fl)
+  map t <Plug>(easymotion-tl)
+  map F <Plug>(easymotion-Fl)
+  map T <Plug>(easymotion-Tl)
+  map / <Plug>(easymotion-sn)
+  omap / <Plug>(easymotion-tn)
+  map n <Plug>(easymotion-next)
+  map N <Plug>(easymotion-prev)
+  set nohlsearch
 
   "=============================================================================
   " Unit.vimの設定
@@ -194,8 +220,6 @@
   colorscheme jellybeans
   " 構文毎に文字色を変化
   syntax on
-  " 透過
-  autocmd GUIEnter * set transparency=220
   " タグファイル指定
   set tags=./tags;
   " 行番号を表示
@@ -220,8 +244,6 @@
   set showcmd
   " 小文字のみで検索した時に大文字小文字を無視
   set smartcase
-  " 検索結果をハイライト
-  set hlsearch
   " 検索ワードを入力した時点で検索を開始
   set incsearch
   " 開業時に前の行のインデントを継続
@@ -242,15 +264,4 @@
 
   set clipboard=unnamed
 
-  "エンターで改行
   noremap <C-CR> o<ESC>
-
-	set guifont=MigMix_1M:h13:w7:cSHIFTJIS
-
-	set columns=180
-
-	set lines=125
-
-	set cmdheight=2
-
-	" autocmd VimEnter * execute 'NERDTree'

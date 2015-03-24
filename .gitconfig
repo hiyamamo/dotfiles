@@ -1,0 +1,9 @@
+[alias]
+	co = checkout
+	sts = status
+[core]
+	editor = vim
+	autocrlf = false
+[user]
+	name = hiyamamo
+	email = h1r0ki_yamam0t0@yahoo.co.jp
