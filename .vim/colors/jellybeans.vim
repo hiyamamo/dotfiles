@@ -329,7 +329,11 @@ call s:X("Cursor",g:jellybeans_background_color,"b0d0f0","","","")
 
 call s:X("LineNr","605958",g:jellybeans_background_color,"none",s:termBlack,"")
 call s:X("CursorLineNr","ccc5c4","","none","White","")
+<<<<<<< HEAD
 call s:X("Comment","888888","","","Grey","")
+=======
+call s:X("Comment","888888","","italic","Grey","")
+>>>>>>> cb1a242e150fd3d1eba6780f4c13cfa42424d236
 call s:X("Todo","c7c7c7","","bold","White",s:termBlack)
 
 call s:X("StatusLine","000000","dddddd","italic","","White")
