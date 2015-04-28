@@ -54,10 +54,6 @@
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
 
-  " React
-  NeoBundle 'mxw/vim-jsx'
-  NeoBundle 'pangloss/vim-javascript'
-
   " 指定の記号で囲む
   NeoBundle 'tpope/vim-surround'
   " grep検索実行後にQuickFix Listを表示する
@@ -72,13 +68,6 @@
   " コメントON/OFFを手軽に実行
   NeoBundle 'tomtom/tcomment_vim'
 
-  " javascript,nodejs補完
-  NeoBundle 'myhere/vim-nodejs-complete'
-
-  " jade
-  NeoBundle 'digitaltoad/vim-jade'
-
-
   " 入力補完
   NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 
@@ -91,20 +80,6 @@
           let g:neocomplete#keyword_patterns = {}
       endif
       let g:neocomplete#keyword_patterns._ = '\h\w*'
-
-      " javascript nodejs
-      autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
-      if !exists('g:neocomplete#sources#omni#functions')
-        let g:neocomplete#sources#omni#functions = {}
-      endif
-      let g:neocomplete#sources#omni#functions.javascript = 'nodejscomplete#CompleteJS'
-
-      if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-      endif
-      let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
-
-
   elseif neobundle#is_installed('neocomplcache')
       " neocomplcache用設定
       let g:neocomplcache_enable_at_startup = 1
@@ -214,6 +189,73 @@
   " Set Options
   "=============================================================================
   " カラー設定
+  colorscheme gruvbox
+  set background=dark
+  " 構文毎に文字色を変化
+  syntax on
+  " タグファイル指定
+  set tags=./tags;
+  " 行番号を表示
+  set number
+  " 対応括弧やブレースを表示
+  set showmatch
+	" showmatchの時間を設定
+	set matchtime=1
+  "タブ文字表示幅
+  set tabstop=2
+  " Vimが挿入するインデント幅
+  set shiftwidth=2
+  " 行頭でタブを入力すると'shiftwidth'分だけインデントする
+  set smarttab
+  " カーソルを行頭、行末で止まらないように
+  set whichwrap=b,s,h,l,<,>,[,]
+  " 行番号の色
+  highlight LineNr ctermfg=darkyellow
+  " ステータスライン行
+  set laststatus=2
+  " コマンドモードで<tab>キーによるファイル名補完を有効化
+  set wildmenu
+  " コマンドを可視化
+  set showcmd
+  " 小文字のみで検索した時に大文字小文字を無視
+  set smartcase
+ set ig " 検索時に大文字小文字を無視
+  set ignorecase
+  " タブ入力を複数の空白入力に置換
+  set expandtab  " 検索ワードを入力した時点で検索を開始norecase  set incsearch
+  " 改行時に前の行のインデントを継続
+  set autoindent
+  " 保存されていないファイルがあるときでも別のファイルを開ける
+  set hidden
+  " ステータス行に表示させる情報の指定
+  set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+  " スワップファイルを作成しない
+  set noswapfile
+  " バックアップファイルを作成しない
+  set nobackup
+  " アンドゥファイルを作成しない
+  set noundofile
+  " 検索文字をハイライト
+  set hlsearch
+
+  " 不可視文字を可視化
+  set list
+
+  set clipboard=unnamed
+
+	" 改行
+  noremap <C-CR> o<ESC>
+
+	" settings for colorscheme:gruvbox
+	let g:gruvbox_italic=0
+
+<<<<<<< Updated upstream
+	set grepprg=c:/cygwin64/bin/grep\ -nrH
+=======
+  "=============================================================================
+  " Set Options
+  "=============================================================================
+  " カラー設定
   colorscheme molokai
   " 構文毎に文字色を変化
   syntax on
@@ -259,3 +301,9 @@
   set nobackup
   " アンドゥファイルを作成しない
   set noundofile
+>>>>>>> Stashed changes
+
+	set display=lastline
+
+	"Yで行末までヤンク
+	nnoremap Y y$

@@ -59,5 +59,14 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%1(v|%1v|)"
 
+# pecoでcd
+function peco-lscd {
+  typeset dir = "$( find . -maxdepth 1 -type d | sed -e 's;\./;;' | peco)"
+  if [ ! -z "$dir"] ; then
+    cd "$dir"
+  fi
+}
+
 [ -f ~/.zshrc.include ] && source ~/.zshrc.include # 設定ファイルのinclude
 
+zstyle ':completion:*' list-colors di=35
