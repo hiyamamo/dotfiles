@@ -243,8 +243,6 @@
   set smartcase
   " 検索結果をハイライト
   set hlsearch
-  " タブ入力を複数の空白入力に置換
-  set expandtab
   " 検索ワードを入力した時点で検索を開始
   set incsearch
   " 開業時に前の行のインデントを継続
