@@ -61,3 +61,35 @@ RPROMPT="%1(v|%1v|)"
 
 [ -f ~/.zshrc.include ] && source ~/.zshrc.include # 設定ファイルのinclude
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+alias mvim=/Applications/MacVim.app/Contents/MacOS/mvim
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
+
+mkdev () {
+  if [ ! -n "$1" ]
+  then
+    echo "Usage: mkdev dir-name"
+    return
+  fi
+  local dirName=$1
+  local rootDir=$(ghq root)
+  local githubUser="github.com/$(git config user.name)"
+  if [[ dirName = */* ]]
+  then
+    githubUser = "github.com"
+  fi
+  local devPath="${rootDir}/${githubUser}/${dirName}"
+  mkdir -p ${devPath}
+  cd ${devPath}
+}

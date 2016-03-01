@@ -7,3 +7,7 @@
 [user]
 	name = hiyamamo
 	email = h1r0ki_yamam0t0@yahoo.co.jp
+[push]
+	default = simple
+[ghq]
+	root = /Users/hiroki/projects

@@ -8,6 +8,16 @@
     set runtimepath+=~/.vim/bundle/neobundle.vim/
   endif
 
+  let mapleader = "\<Space>"
+  nnoremap <Leader>w :w<CR>
+  nnoremap <Leader><Space> :nohlsearch<CR>
+
+  " grep検索実行後にQuickFix Listを表示する
+  autocmd QuickFixCmdPost *grep* cwindow
+
+  " ステータス行に現在のgitブランチを表示する
+  set statusline+=%{fugitive#statusline()}
+
   " Required:
   call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -15,6 +25,25 @@
   " Required:
   NeoBundleFetch 'Shougo/neobundle.vim'
 
+  nnoremap <Leader>m :CtrlPMRUFiles<CR>
+  nmap <Leader>, :Ag <C-r>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>/ :Ag 
+
+  NeoBundleLazy 'leafgarland/typescript-vim', {
+        \ 'autoload' : {
+        \   'filetypes' : ['typescript'] }
+        \}
+
+
+  NeoBundle 'ctrlpvim/ctrlp.vim'
+  NeoBundle 'rking/ag.vim'
+  let g:ctrlp_by_filename = 1
+  let g:ctrlp_match_window = 'bottom, order:ttb, min:1m max:40'
+  let g:ctrlp_working_path_mode = 'w'
+  if executable('ag')
+    let g:ctrlp_use_caching = 0
+    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -g ""'
+  endif
 
   " 自動整形
   NeoBundle 'junegunn/vim-easy-align'
@@ -25,10 +54,10 @@
   " CoffeeScript用のsyntaxなど
   NeoBundle 'kchmck/vim-coffee-script'
 
-  " ファイルオープンを便利に
-  NeoBundle 'Shougo/unite.vim'
-  " Unite.vimで最近使ったファイルを表示できるようにする
-  NeoBundle 'Shougo/neomru.vim'
+  NeoBundle 'pangloss/vim-javascript'
+
+  NeoBundle 'mxw/vim-jsx'
+  let g:jsx_ext_required = 0
 
   " カーソル移動を快適に
   " ミニマル設定
@@ -38,29 +67,6 @@
   let g:EasyMotion_enter_jump_first = 1
   let g:EasyMotion_space_jump_first = 1
 
-  "=============================================================================
-  " Unit.vimの設定
-  "=============================================================================
-  " 入力モードで開始する
-  "let g:unite_enable_start_insert=1
-  " バッファ一覧
-  noremap <C-P> :Unite buffer<CR>
-  " ファイル一覧
-  noremap <C-N> :Unite -buffer-name=file file<CR>
-  " 最近使ったファイルの一覧
-  noremap <C-Z> :Unite file_mru<CR>
-  " sourcesを「今開いているファイルのディレクトリ」とする
-  noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
-  " ウィンドウを分割して開く
-  au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-  au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-  " ウィンドウを縦に分割して開く
-  au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-  au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-  " ESCキーを2回押すと終了する
-  au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-  au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-  "=============================================================================
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
 
@@ -69,11 +75,6 @@
 
   " 指定の記号で囲む
   NeoBundle 'tpope/vim-surround'
-  " grep検索実行後にQuickFix Listを表示する
-  autocmd QuickFixCmdPost *grep* cwindow
-
-  " ステータス行に現在のgitブランチを表示する
-  set statusline+=%{fugitive#statusline()}
 
   " 行末の半角スペースを可視化
   NeoBundle 'bronson/vim-trailing-whitespace'
