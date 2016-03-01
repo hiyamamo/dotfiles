@@ -1,7 +1,6 @@
 export GOROOT=$HOME/go
 export GOPATH=$HOME/mygo
-export ANDROID_HOME=/var/lib/jenkins/android-sdk-linux
-PATH=$PATH:$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin:$GOROOT/bin:$ANDROID_HOME/tools
+PATH=$PATH:$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin:$GOROOT/bin:
 export PATH
 PATH=/usr/local/heroku/bin:$PATH
 

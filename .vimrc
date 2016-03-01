@@ -67,14 +67,19 @@
   let g:EasyMotion_enter_jump_first = 1
   let g:EasyMotion_space_jump_first = 1
 
+	NeoBundle 'tpope/vim-repeat'
+
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
 
-  " Gitを便利に使う
-  NeoBundle 'tpope/vim-fugitive'
+  " React
+  NeoBundle 'mxw/vim-jsx'
+  NeoBundle 'pangloss/vim-javascript'
 
   " 指定の記号で囲む
   NeoBundle 'tpope/vim-surround'
+  " grep検索実行後にQuickFix Listを表示する
+  autocmd QuickFixCmdPost *grep* cwindow
 
   " 行末の半角スペースを可視化
   NeoBundle 'bronson/vim-trailing-whitespace'
@@ -85,9 +90,12 @@
   " コメントON/OFFを手軽に実行
   NeoBundle 'tomtom/tcomment_vim'
 
-  " Rubyのリファレンスを引く
-  NeoBundle 'thinca/vim-ref'
-  NeoBundle 'yuku-t/vim-ref-ri'
+  " javascript,nodejs補完
+  NeoBundle 'myhere/vim-nodejs-complete'
+
+  " jade
+  NeoBundle 'digitaltoad/vim-jade'
+
 
   " 入力補完
   NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
@@ -101,6 +109,20 @@
           let g:neocomplete#keyword_patterns = {}
       endif
       let g:neocomplete#keyword_patterns._ = '\h\w*'
+
+      " javascript nodejs
+      autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
+      if !exists('g:neocomplete#sources#omni#functions')
+        let g:neocomplete#sources#omni#functions = {}
+      endif
+      let g:neocomplete#sources#omni#functions.javascript = 'nodejscomplete#CompleteJS'
+
+      if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+      endif
+      let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+
+
   elseif neobundle#is_installed('neocomplcache')
       " neocomplcache用設定
       let g:neocomplcache_enable_at_startup = 1
@@ -210,7 +232,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme jellybeans
+  colorscheme molokai
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定
@@ -237,10 +259,8 @@
   set showcmd
   " 小文字のみで検索した時に大文字小文字を無視
   set smartcase
-  " 検索時に大文字小文字を無視
-  set ignorecase
-  " タブ入力を複数の空白入力に置換
-  set expandtab
+  " 検索結果をハイライト
+  set hlsearch
   " 検索ワードを入力した時点で検索を開始
   set incsearch
   " 開業時に前の行のインデントを継続
@@ -255,10 +275,3 @@
   set nobackup
   " アンドゥファイルを作成しない
   set noundofile
-  " 検索文字をハイライト
-  set hlsearch
-
-  set clipboard=unnamed
-
-  " エンターで改行
-  noremap <C-CR> o<ESC>

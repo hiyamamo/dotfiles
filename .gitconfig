@@ -11,3 +11,5 @@
 	default = simple
 [ghq]
 	root = /Users/hiroki/projects
+[merge]
+	tool = vimdiff
