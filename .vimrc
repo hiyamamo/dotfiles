@@ -35,9 +35,10 @@
         \}
 
 
+  NeoBundle 'vcscommand.vim'
+  NeoBundle 'hrsh7th/vim-versions'
   NeoBundle 'ctrlpvim/ctrlp.vim'
   NeoBundle 'rking/ag.vim'
-  let g:ctrlp_by_filename = 1
   let g:ctrlp_match_window = 'bottom, order:ttb, min:1m max:40'
   let g:ctrlp_working_path_mode = 'w'
   if executable('ag')
@@ -54,11 +55,6 @@
   " CoffeeScript用のsyntaxなど
   NeoBundle 'kchmck/vim-coffee-script'
 
-  NeoBundle 'pangloss/vim-javascript'
-
-  NeoBundle 'mxw/vim-jsx'
-  let g:jsx_ext_required = 0
-
   " カーソル移動を快適に
   " ミニマル設定
   NeoBundle 'Lokaltog/vim-easymotion'
@@ -72,9 +68,25 @@
   " ファイルをツリー表示
   NeoBundle 'scrooloose/nerdtree'
 
+  " 構文チェック
+  NeoBundle 'scrooloose/syntastic'
+
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 0
+  let g:syntastic_check_on_open = 0
+  let g:syntastic_check_on_wq = 0
+  let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+  let g:syntastic_ruby_checkers = ['rubocop']
+
   " React
   NeoBundle 'mxw/vim-jsx'
+  let g:jsx_ext_required = 0
   NeoBundle 'pangloss/vim-javascript'
+  autocmd BufNewFile,BufRead *.es6 setf javascript
 
   " 指定の記号で囲む
   NeoBundle 'tpope/vim-surround'
@@ -83,9 +95,6 @@
 
   " 行末の半角スペースを可視化
   NeoBundle 'bronson/vim-trailing-whitespace'
-
-  " Ruby向けにendを自動挿入してくれる
-  NeoBundle 'tpope/vim-endwise'
 
   " コメントON/OFFを手軽に実行
   NeoBundle 'tomtom/tcomment_vim'
@@ -96,6 +105,13 @@
   " jade
   NeoBundle 'digitaltoad/vim-jade'
 
+  "========================================
+  " Ruby & Rails Settings
+  "========================================
+  " Ruby向けにendを自動挿入してくれる
+  NeoBundle 'tpope/vim-endwise'
+
+  NeoBundle 'tpope/vim-rails'
 
   " 入力補完
   NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
@@ -232,15 +248,17 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme molokai
+  colorscheme solarized
+  set background=dark
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定
-  set tags=./tags;
+  set tags=./.tags;
   " 行番号を表示
   set number
   " 対応括弧やブレースを表示
   set showmatch
+  set expandtab
   "タブ文字表示幅
   set tabstop=2
   " Vimが挿入するインデント幅
@@ -259,6 +277,7 @@
   set showcmd
   " 小文字のみで検索した時に大文字小文字を無視
   set smartcase
+  set ignorecase
   " 検索結果をハイライト
   set hlsearch
   " 検索ワードを入力した時点で検索を開始
@@ -276,4 +295,6 @@
   " アンドゥファイルを作成しない
   set noundofile
 
+  " 不可視文字を可視化
+  set list
 	set clipboard=unnamed
