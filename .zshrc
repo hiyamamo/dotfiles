@@ -80,5 +80,12 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias cdrails="cd ~/Projects/bm_on_rails"
+alias cdphp="cd ~/Projects/php_apps"
+alias cdgrunt="cd ~/Projects/bm-grunt-tasks"
+alias cdchef="cd ~/Projects/bm_dev_chef"
+alias ctags="`brew --prefix`/bin/ctags"
+
+ulimit -n 9480
