@@ -12,6 +12,7 @@
   nnoremap <Leader>w :w<CR>
   nnoremap <Leader><Space> :nohlsearch<CR>
 
+  nnoremap <C-]> g<C-]>
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
 
@@ -27,6 +28,19 @@
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
   Plug 'vcscommand.vim'
+
+  " Taglist
+  Plug 'taglist.vim'
+  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+  let Tlist_Show_One_File = 1
+  let Tlist_Use_Horiz_Window = 1
+  let Tlist_WinHeight = 20
+  let Tlist_Close_On_Select = 1
+  let Tlist_Compact_Format = 1
+  let Tlist_Exit_OnlyWindow = 1
+  let Tlist_GainFocus_On_ToggleOpen = 1
+  map <silent> <leader>l :TlistToggle<CR>
+
   Plug 'tpope/vim-fugitive'
   Plug 'hrsh7th/vim-versions'
   Plug 'ctrlpvim/ctrlp.vim'
@@ -57,22 +71,34 @@
 
   Plug 'tpope/vim-repeat'
 
+  Plug 'thinca/vim-ref'
+  Plug 'yuku-t/vim-ref-ri'
+
+  nnoremap ,rr :<C-U>Ref ri<Space>
+
   " ファイルをツリー表示
   Plug 'scrooloose/nerdtree'
+  nnoremap <Leader>n :NERDTreeToggle<CR>
 
   " 構文チェック
   Plug 'scrooloose/syntastic'
+  Plug 'pmsorhaindo/syntastic-local-eslint.vim'
 
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
 
+  let g:syntastic_ruby_rubocop_exec = '/Users/yamamoto/bin/rubocop-syntastic'
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 0
   let g:syntastic_check_on_open = 0
   let g:syntastic_check_on_wq = 0
-  let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+  let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': [] }
   let g:syntastic_ruby_checkers = ['rubocop']
+
+  let g:syntastic_javascript_checkers = ['eslint']
+  nnoremap <Leader>t :SyntasticToggleMode<CR>
+  nnoremap <Leader>c :SyntasticCheck<CR>
 
   " React
   Plug 'mxw/vim-jsx'
@@ -101,7 +127,9 @@
   Plug 'tpope/vim-endwise'
 
   Plug 'tpope/vim-rails'
+  Plug 'ruby-matchit'
 
+  let g:ruby_path = ''
   let s:plug = {
         \ "plugs": get(g:, 'plugs', {})
         \ }
@@ -162,6 +190,8 @@
         let g:neocomplcache_delimiter_patterns = {}
     endif
   endif
+
+  Plug 'AndrewRadev/linediff.vim'
 
   " Add plugins to &runtimepath
   call plug#end()
@@ -247,6 +277,15 @@
   " tp 前のタブ
 
   "=============================================================================
+  " ファイルを開いた時とのdiffをとる
+  "=============================================================================
+  set splitright
+  if !exists(":DiffOrig")
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+            \ | wincmd p | diffthis
+  endif
+
+  "=============================================================================
   " Set Options
   "=============================================================================
   " カラー設定
@@ -301,3 +340,8 @@
   set list
   set clipboard=unnamed
   set listchars=eol:¬,tab:▸\ ,trail:.
+
+  set foldenable
+  set foldmethod=indent
+  set foldlevel=1
+  set foldnestmax=4
