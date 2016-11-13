@@ -11,3 +11,4 @@ if [ -d ${HOME}/.rbenv ]; then
 fi
 export SVN_EDITOR=vim
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export LESS='-i -g -M -R'
