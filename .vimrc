@@ -28,6 +28,7 @@
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
   Plug 'vcscommand.vim'
+  Plug 'Chiel92/vim-autoformat'
 
   " Taglist
   Plug 'taglist.vim'
@@ -41,6 +42,7 @@
   let Tlist_GainFocus_On_ToggleOpen = 1
   map <silent> <leader>l :TlistToggle<CR>
 
+  Plug 'simeji/winresizer'
   Plug 'tpope/vim-fugitive'
   Plug 'hrsh7th/vim-versions'
   Plug 'ctrlpvim/ctrlp.vim'
@@ -51,6 +53,8 @@
     let g:ctrlp_use_caching = 0
     let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -g ""'
   endif
+
+  Plug 'Konfekt/FastFold'
 
   " 自動整形
   Plug 'junegunn/vim-easy-align'
@@ -81,24 +85,34 @@
   nnoremap <Leader>n :NERDTreeToggle<CR>
 
   " 構文チェック
-  Plug 'scrooloose/syntastic'
-  Plug 'pmsorhaindo/syntastic-local-eslint.vim'
+  " Plug 'scrooloose/syntastic'
+  " Plug 'pmsorhaindo/syntastic-local-eslint.vim'
 
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
+  " set statusline+=%#warningmsg#
+  " set statusline+=%{SyntasticStatuslineFlag()}
+  " set statusline+=%*
 
-  let g:syntastic_ruby_rubocop_exec = '/Users/yamamoto/bin/rubocop-syntastic'
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 0
-  let g:syntastic_check_on_open = 0
-  let g:syntastic_check_on_wq = 0
-  let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': [] }
-  let g:syntastic_ruby_checkers = ['rubocop']
+  " let g:syntastic_ruby_rubocop_exec = '/Users/yamamoto/bin/rubocop-syntastic'
+  " let g:syntastic_eruby_ruby_quiet_messages =
+  "     \ {'regex': 'possibly useless use of .* in void context'}
+  " let g:syntastic_always_populate_loc_list = 1
+  " let g:syntastic_auto_loc_list = 0
+  " let g:syntastic_check_on_open = 0
+  " let g:syntastic_check_on_wq = 0
+  " let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': [] }
+  " let g:syntastic_ruby_checkers = ['rubocop']
 
-  let g:syntastic_javascript_checkers = ['eslint']
-  nnoremap <Leader>t :SyntasticToggleMode<CR>
-  nnoremap <Leader>c :SyntasticCheck<CR>
+  " let g:syntastic_javascript_checkers = ['eslint']
+  " nnoremap <Leader>t :SyntasticToggleMode<CR>
+  " nnoremap <Leader>c :SyntasticCheck<CR>
+
+  Plug 'neomake/neomake'
+  Plug 'benjie/neomake-local-eslint.vim'
+  autocmd! BufWritePost * Neomake " 保存時に実行する
+  let g:neomake_ruby_enabled_makers = ['rubocop']
+  let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_error_sign = {'text': '>>', 'texthl': 'Error'}
+  let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
 
   " React
   Plug 'mxw/vim-jsx'
@@ -342,6 +356,9 @@
   set listchars=eol:¬,tab:▸\ ,trail:.
 
   set foldenable
-  set foldmethod=indent
   set foldlevel=1
+  set foldmethod=indent
   set foldnestmax=4
+
+  " 折り返しでインデントする
+  set breakindent

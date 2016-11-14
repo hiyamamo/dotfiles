@@ -11,3 +11,7 @@ if [ -d ${HOME}/.rbenv ]; then
 fi
 export SVN_EDITOR=vim
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+export MAVEN_HOME=$HOME/Projects/bm-admin-portable/opt/maven/default
+export TOMCAT_HOME=$HOME/Projects/bm-admin-portable/opt/tomcat/default
+export PATH=$MAVEN_HOME/bin:$PATH
