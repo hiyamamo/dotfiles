@@ -207,6 +207,9 @@
 
   Plug 'AndrewRadev/linediff.vim'
 
+  " Elm-lang
+  Plug 'lambdatoast/elm.vim'
+
   " Add plugins to &runtimepath
   call plug#end()
 
