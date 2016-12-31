@@ -188,6 +188,9 @@
   " Elm-lang
   Plug 'lambdatoast/elm.vim'
 
+  " Vue-vim
+  Plug 'posva/vim-vue'
+
   " Add plugins to &runtimepath
   call plug#end()
 
