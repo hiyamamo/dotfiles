@@ -42,6 +42,8 @@
   let Tlist_GainFocus_On_ToggleOpen = 1
   map <silent> <leader>l :TlistToggle<CR>
 
+  Plug 'rizzatti/dash.vim'
+  nmap <silent> <leader>d <Plug>DashSearch
   Plug 'simeji/winresizer'
   Plug 'tpope/vim-fugitive'
   Plug 'hrsh7th/vim-versions'
@@ -287,7 +289,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme solarized
+  colorscheme solarized8_dark
   set background=dark
   " 構文毎に文字色を変化
   syntax on
@@ -346,3 +348,7 @@
 
   " 折り返しでインデントする
   set breakindent
+
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
