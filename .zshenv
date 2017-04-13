@@ -5,8 +5,8 @@ export PATH
 PATH=/usr/local/heroku/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:$PATH:/Applications/MacVim.app/Contents/MacOS/
 
+export PATH=$HOME/.rbenv/shims:$PATH
 if [ -d ${HOME}/.rbenv ]; then
-  export PAHT=$HOME/.rbenv/bin:$PATH
   eval "$(rbenv init -)"
 fi
 export SVN_EDITOR=vim
