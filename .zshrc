@@ -80,7 +80,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="vim ~/.zshrc"
+alias zshconfig="vim ~/dotfiles/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias cdrails="cd ~/Projects/bm_on_rails"
 alias cdphp="cd ~/Projects/php_apps"
@@ -147,3 +147,13 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+}
+zle -N peco-src
+bindkey '^[' peco-src
