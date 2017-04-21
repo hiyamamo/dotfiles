@@ -16,9 +16,6 @@
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
 
-  " ステータス行に現在のgitブランチを表示する
-  set statusline+=%{fugitive#statusline()}
-
   nnoremap <Leader>m :CtrlPMRUFiles<CR>
   nmap <Leader>, :Ag <C-r>=expand("<cword>")<CR><CR>
   nnoremap <Leader>/ :Ag 
@@ -86,13 +83,12 @@
   Plug 'scrooloose/nerdtree'
   nnoremap <Leader>n :NERDTreeToggle<CR>
 
-  Plug 'neomake/neomake'
-  Plug 'benjie/neomake-local-eslint.vim'
-  autocmd! BufWritePost * Neomake " 保存時に実行する
-  let g:neomake_ruby_enabled_makers = ['rubocop']
-  let g:neomake_javascript_enabled_makers = ['eslint']
-  let g:neomake_error_sign = {'text': '>>', 'texthl': 'Error'}
-  let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
+  " Async Linter
+  Plug 'w0rp/ale'
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+  let g:ale_ruby_rubocop_options = '-D'
 
   " React
   Plug 'mxw/vim-jsx'
@@ -152,18 +148,6 @@
     inoremap <expr><C-l>     neocomplete#complete_common_string()
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#close_popup()."\<C-h>"
-
-    " javascript nodejs
-    "autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
-    "if !exists('g:neocomplete#sources#omni#functions')
-    "  let g:neocomplete#sources#omni#functions = {}
-    "endif
-    "let g:neocomplete#sources#omni#functions.javascript = 'nodejscomplete#CompleteJS'
-
-    "if !exists('g:neocomplete#sources#omni#input_patterns')
-    "  let g:neocomplete#sources#omni#input_patterns = {}
-    "endif
-    "let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
   endif
 
   if s:plug.is_installed('neocomplcache')
@@ -335,8 +319,34 @@
   set autoindent
   " 保存されていないファイルがあるときでも別のファイルを開ける
   set hidden
-  " ステータス行に表示させる情報の指定
-  set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+
+  " ==============================
+  " ステータスライン設定
+  " =============================
+  " ファイル名表示
+  set statusline=%F
+  " 変更チェック表示
+  set statusline+=%m
+  " 読み込み専用かどうか表示
+  set statusline+=%r
+  " ヘルプページなら[HELP]と表示
+  set statusline+=%h
+  " プレビューウインドウなら[Prevew]と表示
+  set statusline+=%w
+  " これ以降は右寄せ表示
+  set statusline+=%=
+  " lintの状態を表示
+  set statusline+=[%{ALEGetStatusLine()}]
+  " file encoding
+  set statusline+=[%{&fileencoding}]
+  " file format
+  set statusline+=[%{&ff}]
+  " column番号
+  set statusline+=[%c]
+  " ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
+  set laststatus=2
+  " =============================
+
   " スワップファイルを作成しない
   set noswapfile
   " バックアップファイルを作成しない
