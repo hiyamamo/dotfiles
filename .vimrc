@@ -17,6 +17,7 @@
   autocmd QuickFixCmdPost *grep* cwindow
 
   nnoremap <Leader>m :CtrlPMRUFiles<CR>
+  let g:ctrlp_show_hidden = 1
   nmap <Leader>, :Ag <C-r>=expand("<cword>")<CR><CR>
   nnoremap <Leader>/ :Ag 
 
@@ -24,11 +25,11 @@
 
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
-  Plug 'vcscommand.vim'
+  Plug 'vim-scripts/vcscommand.vim'
   Plug 'Chiel92/vim-autoformat'
 
   " Taglist
-  Plug 'taglist.vim'
+  Plug 'vim-scripts/taglist.vim'
   let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
   let Tlist_Show_One_File = 1
   let Tlist_Use_Horiz_Window = 1
@@ -55,22 +56,8 @@
 
   Plug 'Konfekt/FastFold'
 
-  " 自動整形
-  Plug 'junegunn/vim-easy-align'
-  " EasyAlign
-  vmap <Cr> <Plug>(EasyAlign)
-  nmap <Leader>a <Plug>(EasyAlign)
-
   " CoffeeScript用のsyntaxなど
   Plug 'kchmck/vim-coffee-script'
-
-  " カーソル移動を快適に
-  " ミニマル設定
-  Plug 'Lokaltog/vim-easymotion'
-  let g:EasyMotion_do_mapping = 0
-  nmap s <Plug>(easymotion-s2)
-  let g:EasyMotion_enter_jump_first = 1
-  let g:EasyMotion_space_jump_first = 1
 
   Plug 'tpope/vim-repeat'
 
@@ -89,6 +76,12 @@
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
   let g:ale_ruby_rubocop_options = '-D'
+  let g:ale_open_list = 0
+  " Write this in your vimrc file
+  let g:ale_lint_on_text_changed = 'never'
+  " You can disable this option too
+  " if you don't want linters to run on opening a file
+  let g:ale_lint_on_enter = 0
 
   " React
   Plug 'mxw/vim-jsx'
@@ -96,19 +89,11 @@
   Plug 'pangloss/vim-javascript'
   autocmd BufNewFile,BufRead *.es6 setf javascript
 
-  " 指定の記号で囲む
-  Plug 'tpope/vim-surround'
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
 
   " 行末の半角スペースを可視化
   Plug 'bronson/vim-trailing-whitespace'
-
-  " コメントON/OFFを手軽に実行
-  Plug 'tomtom/tcomment_vim'
-
-  " jade
-  Plug 'digitaltoad/vim-jade'
 
   "========================================
   " Ruby & Rails Settings
@@ -117,7 +102,7 @@
   Plug 'tpope/vim-endwise'
 
   Plug 'tpope/vim-rails'
-  Plug 'ruby-matchit'
+  Plug 'vim-scripts/ruby-matchit'
 
   let g:ruby_path = ''
   let s:plug = {

@@ -1,6 +1,6 @@
 export GOROOT=$HOME/go
 export GOPATH=$HOME/mygo
-export PATH=$PATH:$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin:$GOROOT/bin:/usr/local/Cellar/git/2.7.2/bin:
+export PATH=$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin:$GOROOT/bin:/usr/local/Cellar/git/2.7.2/bin:$PATH
 
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.rbenv/shims:$PATH
