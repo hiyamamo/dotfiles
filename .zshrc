@@ -89,6 +89,7 @@ alias cdchef="cd ~/Projects/bm_dev_chef"
 alias ctags="`brew --prefix`/bin/ctags"
 alias ssh="TERM=xterm ssh"
 
+eval "$(hub alias -s)"
 ulimit -n 9480
 ###-begin-npm-completion-###
 #
