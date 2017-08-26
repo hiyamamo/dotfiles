@@ -133,6 +133,7 @@
     inoremap <expr><C-l>     neocomplete#complete_common_string()
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#close_popup()."\<C-h>"
+    let g:neocomplete#enable_auto_close_preview = 1
   endif
 
   if s:plug.is_installed('neocomplcache')
@@ -167,6 +168,10 @@
   Plug 'kannokanno/previm'
   Plug 'tyru/open-browser.vim'
 
+  Plug 'fatih/vim-go'
+  autocmd FileType go nmap <leader>b  <Plug>(go-build)
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
   au BufRead,BufNewFile *.md set filetype=markdown
   " let g:previm_open_cmd = 'open -a Chrome'
 
@@ -175,7 +180,6 @@
 
   " Required:
   filetype plugin indent on
-
   "=============================================================================
   " 挿入モード時のステータスラインの色を変更
   "=============================================================================
