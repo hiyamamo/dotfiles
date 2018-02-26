@@ -24,6 +24,8 @@
   call plug#begin('~/.vim/plugged')
 
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+  Plug 'peitalin/vim-jsx-typescript'
+  autocmd BufNewFile,BufRead *.tsx, set filetype=typescript.jsx
 
   Plug 'vim-scripts/vcscommand.vim'
   Plug 'Chiel92/vim-autoformat'
@@ -80,6 +82,9 @@
   \   'javascript': [
   \       'prettier-eslint',
   \   ],
+  \   'typescript': [
+  \       'prettier',
+  \   ],
   \   'ruby': [
   \       'rubocop',
   \   ],
@@ -120,6 +125,8 @@
   let g:LanguageClient_serverCommands = {
   \ 'javascript': ['flow-language-server', '--stdio'],
   \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+  \ 'typescript': ['javascript-typescript-stdio'],
+  \ 'typescript.jsx': ['javascript-typescript-stdio'],
   \ }
 
   " (Optionally) automatically start language servers.
@@ -150,46 +157,9 @@
   endfunction
 
   " 入力補完
-  Plug has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-
-  if s:plug.is_installed('neocomplete')
-    " neocomplete用設定
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_ignore_case = 1
-    let g:neocomplete#enable_smart_case = 1
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns._ = '\h\w*'
-
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#close_popup()."\<C-h>"
-    let g:neocomplete#enable_auto_close_preview = 1
-  endif
-
-  if s:plug.is_installed('neocomplcache')
-    "" neocomplcache用設定
-    let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache_enable_ignore_case = 1
-    let g:neocomplcache_enable_smart_case = 1
-    if !exists('g:neocomplcache_keyword_patterns')
-        let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns._ = '\h\w*'
-    let g:neocomplcache_enable_camel_case_completion = 1
-    let g:neocomplcache_enable_underbar_completion = 1
-    inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-    " demiliter for function compl
-    if !exists('g:neocomplcache_delimiter_patterns')
-        let g:neocomplcache_delimiter_patterns = {}
-    endif
-  endif
+  Plug 'roxma/nvim-completion-manager'
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   Plug 'AndrewRadev/linediff.vim'
 
@@ -216,6 +186,7 @@
 
   " Required:
   filetype plugin indent on
+
   "=============================================================================
   " 挿入モード時のステータスラインの色を変更
   "=============================================================================
