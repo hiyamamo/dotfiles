@@ -1,0 +1,25 @@
+{
+    "mssql.connections": [
+        {
+            "server": "192.168.50.203",
+            "database": "OTOMA",
+            "authenticationType": "SqlLogin",
+            "user": "sa",
+            "password": "",
+            "emptyPasswordInput": false,
+            "savePassword": true
+        }
+    ],
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.formatOnSave": true,
+    "prettier.eslintIntegration": true,
+    "flow.useNPMPackagedFlow": true,
+    "git.ignoreMissingGitWarning": true,
+    "workbench.sideBar.location": "left",
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.leader": "<space>",
+    "workbench.editor.showTabs": true
+}

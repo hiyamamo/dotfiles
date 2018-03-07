@@ -89,6 +89,7 @@
   \       'rubocop',
   \   ],
   \}
+  let g:ale_linters = {'javascript': ['eslint'], 'javascript.jsx': ['eslint'] }
 
   "let g:ale_javascript_prettier_eslint_use_global = 1
   let g:ale_fix_on_save = 1
@@ -352,7 +353,7 @@
 
   " 不可視文字を可視化
   set list
-  set clipboard=unnamed
+  set clipboard=unnamed,unnamedplus
   set listchars=eol:¬,tab:▸\ ,trail:.
 
   set foldenable

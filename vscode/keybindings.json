@@ -1,0 +1,52 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+[
+    {
+        "key": "ctrl+w e",
+        "command": "workbench.files.action.focusFilesExplorer"
+    },
+    {
+        "key": "ctrl+w ctrl+e",
+        "command": "workbench.files.action.focusFilesExplorer"
+    },
+    {
+        "key": "ctrl+w ctrl+w",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+w w",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+w p",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+w l",
+        "command": "workbench.action.focusNextGroup"
+    },
+    {
+        "key": "ctrl+w h",
+        "command": "workbench.action.focusPreviousGroup"
+    },
+    {
+        "key": "ctrl+w ctrl+l",
+        "command": "workbench.action.focusNextGroup"
+    },
+    {
+        "key": "ctrl+w ctrl+h",
+        "command": "workbench.action.focusPreviousGroup"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-cursorLineEnd",
+        "when": "editorTextFocus"
+    }
+]
