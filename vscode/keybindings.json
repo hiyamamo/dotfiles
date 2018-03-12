@@ -48,5 +48,9 @@
         "key": "ctrl+e",
         "command": "-cursorLineEnd",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+cmd+t",
+        "command": "workbench.action.terminal.focus"
     }
 ]

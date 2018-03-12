@@ -21,5 +21,9 @@
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
     "vim.leader": "<space>",
-    "workbench.editor.showTabs": true
+    "workbench.editor.showTabs": true,
+    "ruby.lint": {
+        "rubocop": true
+    },
+    "ruby.intellisense": "rubyLocate"
 }
