@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/Users/yamamoto/dotfiles'
 let g:netrw_dirhist_2='/Users/yamamoto/.git_template'
 let g:netrw_dirhist_3='/Users/yamamoto'
 let g:netrw_dirhist_4='/Users/yamamoto/projects/bm_dev_chef/nfs_sync_dir/bm_on_rails/config'
+let g:netrw_dirhist_5='/Users/yamamoto/projects/bm_dev_chef/nfs_sync_dir/bm-grunt-tasks/assets/javascripts/src/common/components'

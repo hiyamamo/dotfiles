@@ -32,6 +32,50 @@
 
   Plug 'thinca/vim-qfreplace'
 
+  " Snippet
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+
+  function! ExpandLspSnippet()
+    call UltiSnips#ExpandSnippetOrJump()
+    if !pumvisible() || empty(v:completed_item)
+      return ''
+    endif
+
+    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
+    let l:value = v:completed_item['word']
+    let l:matched = len(l:value)
+    if l:matched <= 0
+      return ''
+    endif
+
+    " remove inserted chars before expand snippet
+    if col('.') == col('$')
+      let l:matched -= 1
+      exec 'normal! ' . l:matched . 'Xx'
+    else
+        exec 'normal! ' . l:matched . 'X'
+    endif
+
+    if col('.') == col('$') - 1
+      " move to $ if at the end of line.
+      call cursor(line('.'), col('$'))
+    endif
+
+    " expand snippet now.
+    call UltiSnips#Anon(l:value)
+    return ''
+  endfunction
+
+  imap <C-k> <C-R>=ExpandLspSnippet()<CR>
+
+  let g:UltiSnipsExpandTrigger="<tab>"
+
+  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsJumpForwardTrigger="<c-f>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+
+
   " Taglist
   Plug 'vim-scripts/taglist.vim'
   let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
@@ -51,9 +95,14 @@
   Plug 'hrsh7th/vim-versions'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'rking/ag.vim'
+  Plug 'jremmen/vim-ripgrep'
   let g:ctrlp_match_window = 'bottom, order:ttb, min:1m max:40'
   let g:ctrlp_working_path_mode = 'w'
-  if executable('ag')
+
+  if executable('rg')
+    let g:ctrlp_use_caching = 0
+    let g:ctrlp_user_command = 'rg --files %s'
+  elseif executable('ag')
     let g:ctrlp_use_caching = 0
     let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -g ""'
   endif
@@ -78,6 +127,7 @@
   Plug 'w0rp/ale'
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <Leader>f :ALEFix<CR>
   let g:ale_fixers = {
   \   'javascript': [
   \       'prettier-eslint',
@@ -91,14 +141,11 @@
   \}
   let g:ale_linters = {'javascript': ['eslint'], 'javascript.jsx': ['eslint'] }
 
-  "let g:ale_javascript_prettier_eslint_use_global = 1
   let g:ale_fix_on_save = 1
-
   let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
   let g:ale_ruby_rubocop_options = '-D'
+  let g:ale_lint_on_text_changed = 'always'
   let g:ale_open_list = 0
-  " Write this in your vimrc file
-  let g:ale_lint_on_text_changed = 'never'
   " You can disable this option too
   " if you don't want linters to run on opening a file
   let g:ale_lint_on_enter = 0
@@ -158,9 +205,27 @@
   endfunction
 
   " 入力補完
-  Plug 'roxma/nvim-completion-manager'
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+  let g:deoplete#enable_at_startup = 1
+
+  " close the preview window after completion is done
+  autocmd CompleteDone * silent! pclose!
+
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function() abort
+    return deoplete#close_popup() . "\<CR>"
+  endfunction
 
   Plug 'AndrewRadev/linediff.vim'
 
@@ -180,6 +245,9 @@
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
   au BufRead,BufNewFile *.md set filetype=markdown
+
+  Plug 'kassio/neoterm'
+
   " let g:previm_open_cmd = 'open -a Chrome'
 
   " Add plugins to &runtimepath
@@ -278,8 +346,7 @@
   " Set Options
   "=============================================================================
   " カラー設定
-  colorscheme solarized8_dark
-  set background=dark
+  colorscheme solarized8_dark_high
   " 構文毎に文字色を変化
   syntax on
   " タグファイル指定

@@ -11,9 +11,11 @@
         }
     ],
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.formatOnSave": true,
     "prettier.eslintIntegration": true,
+    "eslint.run": "onSave",
     "flow.useNPMPackagedFlow": true,
+    "flow.runOnEdit": false,
+    "flow.useLSP": true,
     "git.ignoreMissingGitWarning": true,
     "workbench.sideBar.location": "left",
     "vim.hlsearch": true,
@@ -22,8 +24,12 @@
     "vim.useCtrlKeys": true,
     "vim.leader": "<space>",
     "workbench.editor.showTabs": true,
-    "ruby.lint": {
-        "rubocop": true
+    "editor.tabSize": 2,
+    "ruby.intellisense": "rubyLocate",
+    "editor.formatOnSave": true,
+    "[scss]": {
+        "editor.formatOnSave": false
     },
-    "ruby.intellisense": "rubyLocate"
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0
 }
