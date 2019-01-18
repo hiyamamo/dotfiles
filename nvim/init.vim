@@ -36,45 +36,17 @@
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 
-  function! ExpandLspSnippet()
-    call UltiSnips#ExpandSnippetOrJump()
-    if !pumvisible() || empty(v:completed_item)
-      return ''
-    endif
-
-    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
-    let l:value = v:completed_item['word']
-    let l:matched = len(l:value)
-    if l:matched <= 0
-      return ''
-    endif
-
-    " remove inserted chars before expand snippet
-    if col('.') == col('$')
-      let l:matched -= 1
-      exec 'normal! ' . l:matched . 'Xx'
-    else
-        exec 'normal! ' . l:matched . 'X'
-    endif
-
-    if col('.') == col('$') - 1
-      " move to $ if at the end of line.
-      call cursor(line('.'), col('$'))
-    endif
-
-    " expand snippet now.
-    call UltiSnips#Anon(l:value)
-    return ''
-  endfunction
-
-  imap <C-k> <C-R>=ExpandLspSnippet()<CR>
-
   let g:UltiSnipsExpandTrigger="<tab>"
 
   let g:UltiSnipsEditSplit="vertical"
-  let g:UltiSnipsJumpForwardTrigger="<c-f>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+  let g:ultisnips_javascript = {
+       \ 'keyword-spacing': 'always',
+       \ 'semi': 'never',
+       \ 'space-before-function-paren': 'always',
+       \ }
 
   " Taglist
   Plug 'vim-scripts/taglist.vim'
@@ -139,6 +111,7 @@
   \       'rubocop',
   \   ],
   \}
+  let g:ale_ruby_rubocop_options = ['--force-exclusion']
   let g:ale_linters = {'javascript': ['eslint'], 'javascript.jsx': ['eslint'] }
 
   let g:ale_fix_on_save = 1
@@ -149,6 +122,17 @@
   " You can disable this option too
   " if you don't want linters to run on opening a file
   let g:ale_lint_on_enter = 0
+
+  function! ToggleFixOnSave()
+    let g:ale_fix_on_save = !g:ale_fix_on_save
+    if g:ale_fix_on_save == 1
+      echo 'fix_on_save is ON'
+    else
+      echo 'fix_on_save is OFF'
+    endif
+  endfunction
+
+  nmap <silent> <Leader>a :call ToggleFixOnSave()<CR>
 
   " React
   Plug 'mxw/vim-jsx'
@@ -399,8 +383,6 @@
   set statusline+=%w
   " これ以降は右寄せ表示
   set statusline+=%=
-  " lintの状態を表示
-  set statusline+=[%{ALEGetStatusLine()}]
   " file encoding
   set statusline+=[%{&fileencoding}]
   " file format
@@ -434,3 +416,5 @@
   set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+  call deoplete#custom#option('ignore_sources', {'javascript':['LanguageClient'],'javascript.jsx':['LanguageClient']})

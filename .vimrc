@@ -360,8 +360,6 @@
   set statusline+=%w
   " これ以降は右寄せ表示
   set statusline+=%=
-  " lintの状態を表示
-  set statusline+=[%{ALEGetStatusLine()}]
   " file encoding
   set statusline+=[%{&fileencoding}]
   " file format
