@@ -1,8 +1,15 @@
-export GOPATH=$HOME/mygo
-export PATH=$HOME/bin:$HOME/.rbenv/bin:$GOPATH/bin::/usr/local/Cellar/git/2.7.2/bin:$HOME/.rbenv/shims:$PATH
+export PATH=~/.local/bin:/usr/local/bin:$PATH
+source ~/dotfiles/.zshenv
+setopt no_global_rcs
+# Load nodenv automatically by appending
+# the following to ~/.zshrc:
 
-if [ -d ${HOME}/.rbenv ]; then
-  eval "$(rbenv init -)"
-fi
-export SVN_EDITOR=vim
-export LESS='-i -g -M -R'
+eval "$(nodenv init -)"
+export PATH=~/.nodenv/shims:~/bin:$PATH
+eval "$(hub alias -s)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(direnv hook zsh)"
+eval $(thefuck --alias)

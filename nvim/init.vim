@@ -16,16 +16,16 @@
   " grep検索実行後にQuickFix Listを表示する
   autocmd QuickFixCmdPost *grep* cwindow
 
-  nnoremap <Leader>m :CtrlPMRUFiles<CR>
-  let g:ctrlp_show_hidden = 1
   nmap <Leader>, :Ag <C-r>=expand("<cword>")<CR><CR>
   nnoremap <Leader>/ :Ag 
 
-  call plug#begin('~/.vim/plugged')
+  call plug#begin('~/.config/nvim/plugged')
 
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'peitalin/vim-jsx-typescript'
   autocmd BufNewFile,BufRead *.tsx, set filetype=typescript.jsx
+  Plug 'evanleck/vim-svelte'
+  autocmd BufNewFile,BufRead *.svelte, set filetype=svelte
 
   Plug 'vim-scripts/vcscommand.vim'
   Plug 'Chiel92/vim-autoformat'
@@ -36,11 +36,15 @@
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 
+  autocmd FileType javascript UltiSnipsAddFiletypes javascript-mocha
+  autocmd FileType javascript UltiSnipsAddFiletypes javascript-es6-react
   let g:UltiSnipsExpandTrigger="<tab>"
 
   let g:UltiSnipsEditSplit="vertical"
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+  let g:UltiSnipsSnippetDirectories=["snips"]
 
   let g:ultisnips_javascript = {
        \ 'keyword-spacing': 'always',
@@ -68,6 +72,8 @@
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'rking/ag.vim'
   Plug 'jremmen/vim-ripgrep'
+  nnoremap <Leader>m :CtrlPMRUFiles<CR>
+  let g:ctrlp_show_hidden = 1
   let g:ctrlp_match_window = 'bottom, order:ttb, min:1m max:40'
   let g:ctrlp_working_path_mode = 'w'
 
@@ -95,6 +101,9 @@
   Plug 'scrooloose/nerdtree'
   nnoremap <Leader>n :NERDTreeToggle<CR>
 
+  Plug 'embear/vim-localvimrc'
+  let g:localvimrc_ask= 0
+
   " Async Linter
   Plug 'w0rp/ale'
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -102,26 +111,41 @@
   nmap <silent> <Leader>f :ALEFix<CR>
   let g:ale_fixers = {
   \   'javascript': [
-  \       'prettier-eslint',
+  \       'prettier',
   \   ],
   \   'typescript': [
+  \       'prettier',
+  \   ],
+  \   'svelte': [
   \       'prettier',
   \   ],
   \   'ruby': [
   \       'rubocop',
   \   ],
   \}
+
+  let g:ale_history_log_output = 1
+  let g:ale_linter_aliases = {
+  \   'svelte': ['javascript']
+  \}
   let g:ale_ruby_rubocop_options = ['--force-exclusion']
-  let g:ale_linters = {'javascript': ['eslint'], 'javascript.jsx': ['eslint'] }
+  let g:ale_ruby_rubocop_options = '-D'
+
+  let g:ale_linters = {
+  \ 'javascript': ['eslint'],
+  \ 'javascript.jsx': ['eslint'],
+  \ 'svelte': ['eslint'],
+  \ 'ruby': ['rubocop']
+  \}
 
   let g:ale_fix_on_save = 1
   let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-  let g:ale_ruby_rubocop_options = '-D'
   let g:ale_lint_on_text_changed = 'always'
   let g:ale_open_list = 0
   " You can disable this option too
   " if you don't want linters to run on opening a file
   let g:ale_lint_on_enter = 0
+  " let g:ale_linters_explicit = 1
 
   function! ToggleFixOnSave()
     let g:ale_fix_on_save = !g:ale_fix_on_save
@@ -150,7 +174,7 @@
     \ 'do': 'bash install.sh',
     \ }
 
-  nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+  " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
   nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
   nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
@@ -178,6 +202,7 @@
 
   Plug 'tpope/vim-rails'
   Plug 'vim-scripts/ruby-matchit'
+  Plug 'slim-template/vim-slim'
 
   let g:ruby_path = ''
   let s:plug = {
@@ -418,3 +443,10 @@
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
   call deoplete#custom#option('ignore_sources', {'javascript':['LanguageClient'],'javascript.jsx':['LanguageClient']})
+
+  set backupcopy=yes
+
+  "" for only neovim. in pyenv virtualenv named 'nvim-python3'
+  if has('nvim') && isdirectory( $PYENV_ROOT."/versions/nvim-python3" )
+    let g:python3_host_prog = $PYENV_ROOT.'/versions/nvim-python3/bin/python'
+  endif

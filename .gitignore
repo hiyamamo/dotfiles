@@ -1,3 +1,4 @@
 .vim/plugged
 nvim/plugged
 .DS_Store
+nvim/ale

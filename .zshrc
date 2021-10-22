@@ -1,10 +1,12 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/yamamoto/.oh-my-zsh
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="muse"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -51,12 +53,11 @@ ZSH_THEME="muse"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+source $ZSH/oh-my-zsh.sh
+
 # User configuration
 
-# export PATH=$HOME/bin:/usr/local/bin:$PATH:/Applications/MacVim.app/Contents/MacOS/
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -72,7 +73,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -80,74 +81,35 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="vim ~/dotfiles/.zshrc"
+# alias zshconfig="mate ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
+alias gitconfig="vim ./.git/config"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias cdrails="cd ~/Projects/bm_on_rails"
-alias cdphp="cd ~/Projects/php_apps"
-alias cdgrunt="cd ~/Projects/bm-grunt-tasks"
-alias cdchef="cd ~/Projects/bm_dev_chef"
+alias cdrails="cd ~/projects/bm_dev_chef/nfs_sync_dir/bm_on_rails"
+alias cdphp="cd ~/projects/bm_dev_chef/nfs_sync_dir/php_apps"
+alias cdgrunt="cd ~/projects/bm_dev_chef/nfs_sync_dir/bm-grunt-tasks"
+alias cdchef="cd ~/projects/bm_dev_chef"
+alias cdadmin="cd ~/projects/bm-admin-portable/src/buyma-admin"
+alias cdstyling="cd ~/projects/buyma_styling/backend"
 alias ctags="`brew --prefix`/bin/ctags"
 alias ssh="TERM=xterm ssh"
+alias ohmyzsh="mate ~/.oh-my-zsh"
+alias v="vagrant"
+alias vssh="vagrant ssh"
+alias vup="vagrant up"
+alias y="yarn"
+alias dc="docker-compose"
+alias dspec="docker-compose exec spring bin/rspec"
+alias kb="kubectl"
 
-eval "$(hub alias -s)"
-ulimit -n 9480
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
+function peco-git-checkout () {
+  local selected_branch=$(git branch -a | awk '{print $NF}'  | sed 's/remotes\/origin\///' | sort | uniq | peco)
+  if [ -n "$selected_branch" ]; then
+    git checkout ${selected_branch}
+  fi
+}
 
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local words cword
-    if type _get_comp_words_by_ref &>/dev/null; then
-      _get_comp_words_by_ref -n = -n @ -w words -i cword
-    else
-      cword="$COMP_CWORD"
-      words=("${COMP_WORDS[@]}")
-    fi
-
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${words[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -o default -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    local si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
-fi
-###-end-npm-completion-###
+alias peck=peco-git-checkout
 
 function peco-src () {
   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
@@ -157,4 +119,49 @@ function peco-src () {
   fi
 }
 zle -N peco-src
-bindkey '^[' peco-src
+bindkey '^]' peco-src
+export PATH="/usr/local/sbin:$PATH"
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/yamamoto/.nodenv/versions/9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/yamamoto/.nodenv/versions/9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/yamamoto/.nodenv/versions/9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/yamamoto/.nodenv/versions/9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/yamamoto/.nodenv/versions/9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/yamamoto/.nodenv/versions/9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+
+alias shuttle=exec_sshuttle
+
+function exec_sshuttle() {
+  sshuttle --daemon --disable-ipv6 -r hiroki.yamamoto@tk.buyma.com \
+    --pidfile /tmp/sshuttle.pid \
+    106.186.74.106/32 106.186.74.107/32 \
+    $(dig bmhistories-dc01-rw.d1.test.buyma.com +short | grep -v '[a-z]') \
+    $(dig partners-test.buyma.com bm{items,trades}-0{1,2}.search-infra-dev.buyma.com \
+    r.buyma.com postgres.personal-shopper-api-test.buyma.com postgres.personal-shopper-api.buyma.com argocd.srv-dev.buyma.com adminer.personal-shopper-api-test.buyma.com \
+    personal-shopper-api.buyma.com partners.buyma.com personal-shopper-sandbox.buyma.com \
+    adminer.personal-shopper-api.buyma.com b.buyma.com admin.buyma.com \
+    japanpost.shipping.srv-test.buyma.com \
+    japanpost.shipping.srv.buyma.com \
+    postgres.japanpost.shipping.srv-test.buyma.com \
+    postgres.japanpost.shipping.srv.buyma.com \
+    specification.personal-shopper-api-test.buyma.com +short | sed 's@$@/32@')
+}
+
+alias curlish="PYENV_VERSION=2.7.15 curlish"
+export PATH="$HOME/.buyma_utils/bin:$PATH"
+alias sshp="SSHPASS=\`sudo cat ~/.ssh/.pass\` sshpass -e ssh"
+alias sht=sshtunnel

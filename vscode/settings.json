@@ -26,10 +26,10 @@
     "workbench.editor.showTabs": true,
     "editor.tabSize": 2,
     "ruby.intellisense": "rubyLocate",
-    "editor.formatOnSave": true,
     "[scss]": {
         "editor.formatOnSave": false
     },
     "explorer.confirmDelete": false,
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "editor.largeFileOptimizations": false
 }
